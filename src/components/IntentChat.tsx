@@ -84,7 +84,6 @@ export default function IntentChat({ onOptimized }: IntentChatProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_DASHSCOPE_API_KEY}`,
         },
         body: JSON.stringify({
           model: 'qwen3.7-plus',

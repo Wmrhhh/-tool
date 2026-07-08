@@ -45,15 +45,17 @@ pnpm install
 
 ### 环境配置
 
-在项目根目录创建 `.env` 文件：
+在项目根目录创建 `.env` 文件（可参考 `.env.example`）：
 
 ```env
-# 通义万相 API Key
-VITE_DASHSCOPE_API_KEY=your-api-key
+# 通义万相 API Key（仅服务端使用，不会暴露给浏览器）
+DASHSCOPE_API_KEY=your-api-key
 
-# 通义万相 Workspace ID（文生图代理用）
-VITE_DASHSCOPE_WORKSPACE_ID=your-workspace-id
+# 通义万相 Workspace ID
+DASHSCOPE_WORKSPACE_ID=your-workspace-id
 ```
+
+> **安全说明**：API Key 通过服务端代理注入，前端请求不再携带密钥。开发环境由 Vite 代理处理，生产环境由 Netlify Functions 处理。部署到 Netlify 时，请在 Netlify 后台 **Site settings → Environment variables** 中配置以上两个变量。
 
 ### 启动开发服务器
 
@@ -99,7 +101,7 @@ src/
 
 ### 通义万相（文生图）
 
-代理路径：`/dashscope` → `https://{workspaceId}.cn-beijing.maas.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation`
+代理路径：`/dashscope` → 服务端代理 → `https://{workspaceId}.cn-beijing.maas.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation`
 
 - 模型：`wan2.7-image-pro`
 - 支持文生图和图生图（传入 `image` 参数）
@@ -107,7 +109,7 @@ src/
 
 ### 通义千问（对话）
 
-代理路径：`/qwen-chat` → `https://ws-n7t7hctva4zeim4t.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions`
+代理路径：`/qwen-chat` → 服务端代理 → `https://{workspaceId}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions`
 
 - 模型：`qwen3.7-plus`
 - 用于意图优化对话

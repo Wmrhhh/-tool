@@ -44,7 +44,6 @@ export default function ImageGenerator({ placeholder, prompt: externalPrompt, sh
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_DASHSCOPE_API_KEY}`,
         },
         body: JSON.stringify({
           model: 'wan2.7-image-pro',

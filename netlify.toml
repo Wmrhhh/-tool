@@ -1,0 +1,21 @@
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# API proxy — key is injected server-side, never sent from the browser
+[[redirects]]
+  from = "/dashscope"
+  to = "/.netlify/functions/dashscope"
+  status = 200
+
+[[redirects]]
+  from = "/qwen-chat"
+  to = "/.netlify/functions/qwen-chat"
+  status = 200
+
+# SPA fallback (must be last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
